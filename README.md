@@ -71,9 +71,13 @@ The location of your credentials file can be overriden by suppling a value for `
 
 ##### Running on public
 
-To disable profile usage and saving set the ENV flag "PUBLIC_ENV". When set you must use an authentication token each time. When this feature is enabled you will see the following message.
+`gpbattlebus` is also available on https://replit.com. As this is a public environment using and saving profiles is disabled. Instead each time you must specify an authentication token.
+
+When this feature is enabled you will see the following message.
 
 `# PUBLIC ENVIRONMENT DETECTED PROFILE USE IS DISABLED`
+
+- https://replit.com/@indieisaconcept/gpbattlebus
 
 ### Contributing
 
@@ -94,5 +98,6 @@ In the future I plan to add support via a flag to use this users friend list ins
 - 1.0.0 Initial release
 - 2.0.0 Support running on public hosts
   - Profile persistence is now managed via a flag `--save-profile`
+- 2.1.0 Use replit env vars to detect cloud env
 
 Hey ... you just got played 🪣

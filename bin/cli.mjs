@@ -3,7 +3,7 @@ import meow from "meow";
 import cmd from "../lib/index.mjs";
 import { log } from "../lib/util/common.mjs";
 
-const PUBLIC_ENV = "PUBLIC_ENV" in process.env;
+const IS_REPL = "REPL_ID" in process.env; // Is this running on REPL?
 
 const cli = meow(
   `
@@ -79,7 +79,7 @@ if (!cli.flags.reference) {
   );
   cli.showHelp();
 } else {
-  if (PUBLIC_ENV) {
+  if (IS_REPL) {
     log.newLine();
     log("# PUBLIC ENVIRONMENT DETECTED PROFILE USE IS DISABLED");
   }
@@ -87,8 +87,8 @@ if (!cli.flags.reference) {
   await cmd({
     ...cli.flags,
     clientCode: "3446cd72694c4a4485d81b77adbb2141",
-    profile: PUBLIC_ENV ? undefined : cli.flags.profile,
-    persistAuth: PUBLIC_ENV ? false : cli.flags.saveProfile,
+    profile: IS_REPL ? undefined : cli.flags.profile,
+    persistAuth: IS_REPL ? false : cli.flags.saveProfile,
   });
 }
 
