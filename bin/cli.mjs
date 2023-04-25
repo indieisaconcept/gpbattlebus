@@ -3,23 +3,29 @@ import meow from "meow";
 import cmd from "../lib/index.mjs";
 import { log } from "../lib/util/common.mjs";
 
+const PUBLIC_ENV = "PUBLIC_ENV" in process.env;
+
 const cli = meow(
   `
     Usage
-        $ gbbattlebus --profile <username>
+        $ gpbattlebus --reference "<google-sheet-id>"
 
     Options
-        --profile     -p  The credentials profile to use
-        --credentials -c  The location where credentials are stored
-        --limit       -l  Limit the number of friends to add at a time
-        --dryrun      -d  Perform a dry run
-        --reference   -r  The google sheet id to use as a friend source
+        --reference       -r  The friend source to use
+
+        --profile         -p  Credentials profile to use
+        --save-profile    -s  Save auth credentials against profile name
+        --credentials     -c  The location where credentials are stored
+
+        --limit           -l  Limit the number of friends to add at a time
+        --dryrun          -d  Perform a dry run
 
     Examples
-        $  gbbattlebus --profile indieisaconcept --dryrun
+        $  gpbattlebus --reference <google-sheet-id> --dryrun
 `,
   {
     importMeta: import.meta,
+    allowUnknownFlags: false,
     flags: {
       dryrun: {
         type: "boolean",
@@ -29,7 +35,6 @@ const cli = meow(
       credentials: {
         type: "string",
         default: "./deviceAuth.json",
-        helpText: "Defaults to ./deviceAuth.json if not supplied",
         shortFlag: "d",
       },
       reference: {
@@ -41,15 +46,21 @@ const cli = meow(
         default: -1,
         shortFlag: "l",
       },
+      saveProfile: {
+        type: "boolean",
+        shortFlag: "s",
+        isRequired: (flags) => (flags.profile ? true : false),
+      },
       profile: {
         type: "string",
         shortFlag: "p",
+        isRequired: (flags) => (flags.saveProfile ? true : false),
       },
     },
   }
 );
 
-if (!cli.flags.profile || !cli.flags.reference) {
+if (!cli.flags.reference) {
   log(
     `
 ██████╗ ███████╗████████╗██████╗ ██╗      █████╗ ██╗   ██╗███████╗██████╗     
@@ -68,10 +79,16 @@ if (!cli.flags.profile || !cli.flags.reference) {
   );
   cli.showHelp();
 } else {
+  if (PUBLIC_ENV) {
+    log.newLine();
+    log("# PUBLIC ENVIRONMENT DETECTED PROFILE USE IS DISABLED");
+  }
+
   await cmd({
     ...cli.flags,
     clientCode: "3446cd72694c4a4485d81b77adbb2141",
-    googleSheetId: cli.flags.reference,
+    profile: PUBLIC_ENV ? undefined : cli.flags.profile,
+    persistAuth: PUBLIC_ENV ? false : cli.flags.saveProfile,
   });
 }
 

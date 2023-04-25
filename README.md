@@ -23,17 +23,24 @@ $ npx github:indieisaconcept/gpbattlebus
 
 Note you will need to supply the flag `--reference`. The value for this can be found in the getplayed discord.
 
-`$ npx github:indieisaconcept/gpbattlebus --profile <username>`
+`$ npx github:indieisaconcept/gpbattlebus --reference <value>`
 
-1. Login using supplied found credentials
-2. Fetch friends list from Google Sheet
+1. Login using using authorisation code
+2. Fetch friends list using reference
 3. Add missing friends
 
-`$ npx github:indieisaconcept/gpbattlebus --profile <username> --dryrun`
+`$ npx github:indieisaconcept/gpbattlebus --profile <username> --reference <value> --dryrun`
 
 1. Login using supplied found credentials
 2. Fetch friends list from Google Sheet
 3. Display summary of current friendships
+
+`$ npx github:indieisaconcept/gpbattlebus --profile <username> --save-profile --reference <value>`
+
+1. Login using supplied found credentials
+2. Save credentials against profile name
+3. Fetch friends list from Google Sheet
+4. Display summary of current friendships
 
 #### Authentication
 
@@ -62,6 +69,12 @@ Credentials are saved to `./authDevice.json` and scoped based on the supplied pr
 
 The location of your credentials file can be overriden by suppling a value for `--credentials`.
 
+##### Running on public
+
+To disable profile usage and saving set the ENV flag "PUBLIC_ENV". When set you must use an authentication token each time. When this feature is enabled you will see the following message.
+
+`# PUBLIC ENVIRONMENT DETECTED PROFILE USE IS DISABLED`
+
 ### Contributing
 
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using npm test
@@ -79,5 +92,7 @@ In the future I plan to add support via a flag to use this users friend list ins
 ### Release History
 
 - 1.0.0 Initial release
+- 2.0.0 Support running on public hosts
+  - Profile persistence is now managed via a flag `--save-profile`
 
 Hey ... you just got played 🪣
