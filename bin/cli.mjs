@@ -12,16 +12,18 @@ const cli = meow(
 
     Options
         --reference       -r  The friend source to use
+        --mode            -m  The execution mode "auto", "add", "accept"
 
-        --profile         -p  Credentials profile to use
-        --save-profile    -s  Save auth credentials against profile name
+        --profile         -p  Authentication profile to use
+        --save-profile    -s  Save authentication tokens against profile name
         --credentials     -c  The location where credentials are stored
 
         --limit           -l  Limit the number of friends to add at a time
         --dryrun          -d  Perform a dry run
 
     Examples
-        $  gpbattlebus --reference <google-sheet-id> --dryrun
+        $  gpbattlebus --reference <google-sheet-id> --mode add --dryrun
+        $  gpbattlebus --reference <google-sheet-id> --mode accept --dryrun
 `,
   {
     importMeta: import.meta,
@@ -45,6 +47,12 @@ const cli = meow(
         type: "number",
         default: -1,
         shortFlag: "l",
+      },
+      mode: {
+        type: "string",
+        choices: ["auto", "add", "accept", "summary"],
+        default: "summary",
+        shortFlag: "mode",
       },
       saveProfile: {
         type: "boolean",
