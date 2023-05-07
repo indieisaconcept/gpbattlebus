@@ -131,5 +131,6 @@ In the future I plan to add support via a flag to use this users friend list ins
 - 2.1.0 Use replit env vars to detect cloud env
   - When replit is detected profile saving is disabled
 - 2.2.0 Added mode flag to permit adding, accepting friends independently
+- 2.2.1 Added additional external auth sources as fallback for when display name not defined
 
 Hey ... you just got played 🪣
