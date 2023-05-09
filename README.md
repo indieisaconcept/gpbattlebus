@@ -29,6 +29,8 @@ When running in the environment you will see the following message.
 
 - https://replit.com/@indieisaconcept/gpbattlebus
 
+https://user-images.githubusercontent.com/640613/236969973-f9e808b7-42ff-461d-a24a-0037156dc58f.mp4
+
 ### Example Usage
 
 Note you will need to supply the flag `--reference`. The value for this can be found in the getplayed discord. The examples below make use of the `--dryrun` flag. When this flag is used no changes will be applied and only a summary is displayed. Remove to apply changes.
@@ -131,6 +133,8 @@ In the future I plan to add support via a flag to use this users friend list ins
 - 2.1.0 Use replit env vars to detect cloud env
   - When replit is detected profile saving is disabled
 - 2.2.0 Added mode flag to permit adding, accepting friends independently
-- 2.2.1 Added additional external auth sources as fallback for when display name not defined
+- 2.2.1 
+  - Added additional external auth sources as fallback for when display name not defined
+  - Added instruction video
 
 Hey ... you just got played 🪣
